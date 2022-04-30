@@ -13,7 +13,7 @@ I have extended this project in the following ways:
 Clone the Repository
 
 ```
-$ git clone 
+$ git clone git@github.com:normanrichardson/FCC-Celestial-Bodies.git
 $ cd FCC-Celestial-Bodies
 ```
 
@@ -58,19 +58,14 @@ The mapped files are accessible within the container and the host.
 
 Launch psql in the celestial-bodies-proj container
 ```
-$ docker exec -it celestial-bodies-proj \
-psql -U freecodecamp -d universe
+$ docker exec -it -w /home/src celestial-bodies-proj \
+psql -U freecodecamp -d universe -f create.sql
 ```
-This will open a new psgl console connected to the universe database. 
+This will connect to the universe database and run the `sql_files\create.sql` file which generates the database and inserts the contained data. 
 
-Run the generated sql script and exit:
-```
-universe=# \i home/src/create.sql
-universe=# exit
-```
 Dump the file as required by the project description
 ```
-$ docker exec -it celestial-bodies-proj \
+$ docker exec -it -w /home/src celestial-bodies-proj \
 pg_dump -cC --inserts -U freecodecamp universe > universe.sql
 ```
 Stop the container
